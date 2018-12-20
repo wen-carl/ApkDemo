@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Apk示例</string>
+
+    <string name="rb_auto">自动</string>
+    <string name="rb_chinese">中文</string>
+    <string name="rb_english">English</string>
+    <string name="rb_japanese">日本語</string>
+
+    <string name="hello">你好</string>
+</resources>
