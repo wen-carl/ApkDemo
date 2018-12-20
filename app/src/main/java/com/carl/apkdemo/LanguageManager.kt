@@ -52,11 +52,11 @@ class LanguageManager private constructor(context: Context){
         }
 
         private fun updateLanguageBeforeN(context: Context) : Context {
-//            val resources = context.resources
-//            val configuration = resources.configuration
-//            val locale = manager.locale()
-//            configuration.setLocale(locale)
-//            resources.updateConfiguration(configuration, resources.displayMetrics)
+            val resources = context.resources
+            val configuration = resources.configuration
+            val locale = manager.currentLocale()
+            configuration.setLocale(locale)
+            resources.updateConfiguration(configuration, resources.displayMetrics)
 
             return context
         }
