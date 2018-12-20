@@ -16,8 +16,12 @@ class App : Application() {
 
         Context = this
         sharedPreferences = getSharedPreferences(packageName, android.content.Context.MODE_PRIVATE)
-        sharedPreferences.edit()
-            .putString(LanguageManager.SP_KEY_LANGUAGE, LanguageEnum.Auto.value)
-            .apply()
+
+        val language = sharedPreferences.getString(LanguageManager.SP_KEY_LANGUAGE, "")
+        if (language.isNullOrEmpty()) {
+            sharedPreferences.edit()
+                .putString(LanguageManager.SP_KEY_LANGUAGE, LanguageEnum.Auto.value)
+                .apply()
+        }
     }
 }
