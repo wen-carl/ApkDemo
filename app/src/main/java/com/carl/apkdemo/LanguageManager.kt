@@ -21,13 +21,14 @@ class LanguageManager private constructor(context: Context){
         }
 
         fun reload(activity: AppCompatActivity) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                activity.recreate()
-            } else {
-                val intent = Intent(activity, activity::class.java)
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                activity.startActivity(intent)
-            }
+            activity.recreate()
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                activity.recreate()
+//            } else {
+//                val intent = Intent(activity, activity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//                activity.startActivity(intent)
+//            }
         }
 
         fun getAttachBaseContext(context: Context?) : Context? {
