@@ -1,5 +1,5 @@
-# ApkDemo
-> 中文（中国）：values-zh-rCN
+```kotlin
+中文（中国）：values-zh-rCN
 中文（台湾）：values-zh-rTW
 中文（香港）：values-zh-rHK
 英语（美国）：values-en-rUS
@@ -57,3 +57,4 @@
 土耳其文：values–r-rTR
 乌克兰文：values-uk-rUA
 越南文：values-vi-rVN
+```
