@@ -44,7 +44,7 @@ class LanguageManager private constructor(context: Context){
 
         @TargetApi(Build.VERSION_CODES.N)
         private fun updateLanguageAfterN(context: Context) : Context {
-            val locale = manager.locale()
+            val locale = manager.currentLocale()
             val config = context.resources.configuration
             config.setLocale(locale)
 
@@ -64,28 +64,8 @@ class LanguageManager private constructor(context: Context){
 
     private val app: App = context.applicationContext as App
 
-    fun locale() : Locale {
-        val res = app.resources
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            res.configuration.locales[0]
-        } else {
-            res.configuration.locale
-        }
-    }
-
     fun system() : LanguageEnum {
        return current(Locale.getDefault().language)
-    }
-
-    fun system1() : LanguageEnum {
-        val res = app.resources
-        val locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            res.configuration.locales[0]
-        } else {
-            res.configuration.locale
-        }
-
-        return current(locale.language)
     }
 
     fun current() : LanguageEnum {
@@ -95,6 +75,25 @@ class LanguageManager private constructor(context: Context){
         } else {
             current(language)
         }
+    }
+
+    fun currentLocale() : Locale {
+        val language = app.sharedPreferences.getString(SP_KEY_LANGUAGE, LanguageEnum.Auto.value)
+        return if (language.isNullOrEmpty()) {
+            Locale.getDefault()
+        } else {
+            when (language) {
+                LanguageEnum.Auto.value ->      Locale.getDefault()
+                LanguageEnum.Chinese.value ->   Locale.SIMPLIFIED_CHINESE
+                LanguageEnum.English.value ->   Locale.ENGLISH
+                LanguageEnum.Japanese.value ->  Locale.JAPANESE
+                else ->                         Locale.getDefault()
+            }
+        }
+    }
+
+    fun currentLanguage() : String {
+        return currentLocale().language
     }
 
     private fun current(language: String) : LanguageEnum {
