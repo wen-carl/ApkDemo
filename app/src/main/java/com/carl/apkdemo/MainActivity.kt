@@ -1,7 +1,6 @@
 package com.carl.apkdemo
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_main.*
 

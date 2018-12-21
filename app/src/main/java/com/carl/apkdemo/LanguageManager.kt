@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.LocaleList
 import android.support.v7.app.AppCompatActivity
 import java.util.*
-import android.content.Intent
 
 
 class LanguageManager private constructor(context: Context) {
