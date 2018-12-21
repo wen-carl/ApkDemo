@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Apk示例</string>
+    <string name="app_name">Apkの例</string>
 
     <string name="rb_auto">自動</string>
     <string name="rb_chinese">中文</string>

@@ -1,32 +1,18 @@
 package com.carl.apkdemo
 
-import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_switch.*
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
-class SwitchActivity : AppCompatActivity() {
+class SwitchActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_switch)
+        replaceContentViewWith(R.layout.activity_switch)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setUp()
-
-        EventBus.getDefault().register(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        EventBus.getDefault().removeAllStickyEvents()
-        EventBus.getDefault().unregister(this)
-    }
-
-    override fun attachBaseContext(newBase: Context?) {
-        super.attachBaseContext(LanguageManager.getAttachBaseContext(newBase))
     }
 
     private fun setUp() {
@@ -48,13 +34,6 @@ class SwitchActivity : AppCompatActivity() {
             }
 
             EventBus.getDefault().post(MessageEvent(1))
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    fun onReceiveEvent(msg: MessageEvent) {
-        if (1 == msg.type) {
-            LanguageManager.reload(this)
         }
     }
 }
