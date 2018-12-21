@@ -9,8 +9,7 @@ import java.util.*
 import android.content.Intent
 
 
-
-class LanguageManager private constructor(context: Context){
+class LanguageManager private constructor(context: Context) {
 
     companion object {
 
@@ -31,7 +30,7 @@ class LanguageManager private constructor(context: Context){
 //            }
         }
 
-        fun getAttachBaseContext(context: Context?) : Context? {
+        fun getAttachBaseContext(context: Context?): Context? {
             return if (null == context) {
                 null
             } else {
@@ -44,15 +43,15 @@ class LanguageManager private constructor(context: Context){
         }
 
         @TargetApi(Build.VERSION_CODES.N)
-        private fun updateLanguageAfterN(context: Context) : Context {
-            val locale = manager.currentLocale()
+        private fun updateLanguageAfterN(context: Context): Context {
+            val locales = manager.currentLocales()
             val config = context.resources.configuration
-            config.setLocale(locale)
+            config.locales = locales
 
             return context.createConfigurationContext(config)
         }
 
-        private fun updateLanguageBeforeN(context: Context) : Context {
+        private fun updateLanguageBeforeN(context: Context): Context {
             val resources = context.resources
             val configuration = resources.configuration
             val locale = manager.currentLocale()
@@ -65,11 +64,11 @@ class LanguageManager private constructor(context: Context){
 
     private val app: App = context.applicationContext as App
 
-    fun system() : LanguageEnum {
-       return current(Locale.getDefault().language)
+    fun system(): LanguageEnum {
+        return current(Locale.getDefault().language)
     }
 
-    fun current() : LanguageEnum {
+    fun current(): LanguageEnum {
         val language = app.sharedPreferences.getString(SP_KEY_LANGUAGE, LanguageEnum.Auto.value)
         return if (language.isNullOrEmpty()) {
             system()
@@ -78,57 +77,88 @@ class LanguageManager private constructor(context: Context){
         }
     }
 
-    fun currentLocale() : Locale {
-        val language = app.sharedPreferences.getString(SP_KEY_LANGUAGE, LanguageEnum.Auto.value)
-        return if (language.isNullOrEmpty()) {
-            Locale.getDefault()
+    fun currentLocale(language: String? = null): Locale {
+        val lang = if (language.isNullOrEmpty()) {
+           app.sharedPreferences.getString(SP_KEY_LANGUAGE, LanguageEnum.Auto.value)
         } else {
-            when (language) {
-                LanguageEnum.Auto.value ->      Locale.getDefault()
-                LanguageEnum.Chinese.value ->   Locale.SIMPLIFIED_CHINESE
-                LanguageEnum.English.value ->   Locale.ENGLISH
-                LanguageEnum.Japanese.value ->  Locale.JAPANESE
-                else ->                         Locale.getDefault()
-            }
+            language
+        }
+
+        return when (lang) {
+            LanguageEnum.Chinese.value -> Locale.SIMPLIFIED_CHINESE
+            LanguageEnum.English.value -> Locale.ENGLISH
+            LanguageEnum.Japanese.value -> Locale.JAPANESE
+            LanguageEnum.Auto.value -> Locale.getDefault()
+            else -> Locale.getDefault()
         }
     }
 
-    fun currentLanguage() : String {
-        return currentLocale().language
+    @TargetApi(Build.VERSION_CODES.N)
+    fun currentLocales(language: String? = null): LocaleList {
+        val lang = if (language.isNullOrEmpty()) {
+            app.sharedPreferences.getString(SP_KEY_LANGUAGE, LanguageEnum.Auto.value)
+        } else {
+            language
+        }
+
+        return when (lang) {
+            LanguageEnum.Auto.value -> LocaleList.getAdjustedDefault()
+            LanguageEnum.Chinese.value -> LocaleList(Locale.SIMPLIFIED_CHINESE)
+            LanguageEnum.English.value -> LocaleList(Locale.ENGLISH)
+            LanguageEnum.Japanese.value -> LocaleList(Locale.JAPANESE)
+            else -> LocaleList.getAdjustedDefault()
+        }
     }
 
-    private fun current(language: String) : LanguageEnum {
+    fun currentLanguage(): String {
+        return Locale.getDefault().language
+    }
+
+    private fun current(language: String): LanguageEnum {
         return when (language) {
-            LanguageEnum.Auto.value ->      LanguageEnum.Auto
-            LanguageEnum.Chinese.value ->   LanguageEnum.Chinese
-            LanguageEnum.English.value ->   LanguageEnum.English
-            LanguageEnum.Japanese.value ->  LanguageEnum.Japanese
-            else ->                         LanguageEnum.Auto
+            LanguageEnum.Auto.value -> LanguageEnum.Auto
+            LanguageEnum.Chinese.value -> LanguageEnum.Chinese
+            LanguageEnum.English.value -> LanguageEnum.English
+            LanguageEnum.Japanese.value -> LanguageEnum.Japanese
+            else -> LanguageEnum.Auto
         }
     }
 
     fun switchTo(languageEnum: LanguageEnum) {
-
-        val locale = when (languageEnum) {
-            LanguageEnum.Auto ->        Locale.getDefault()
-            LanguageEnum.Chinese ->     Locale.SIMPLIFIED_CHINESE
-            LanguageEnum.English ->     Locale.ENGLISH
-            LanguageEnum.Japanese ->    Locale.JAPANESE
-            else ->                     Locale.getDefault()
-        }
-
         val config = app.resources.configuration
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            config.setLocale(locale)
-            config.setLayoutDirection(locale)
+            val locales = currentLocales(languageEnum.value)
+
+            config.locales = locales
+            config.setLayoutDirection(locales[0])
         } else {
+            val locale = currentLocale(languageEnum.value)
+
             config.setLocale(locale)
             config.setLayoutDirection(locale)
             app.resources.updateConfiguration(config, app.resources.displayMetrics)
         }
+
+//        val locale = when (languageEnum) {
+//            LanguageEnum.Auto ->        Locale.getDefault()
+//            LanguageEnum.Chinese ->     Locale.SIMPLIFIED_CHINESE
+//            LanguageEnum.English ->     Locale.ENGLISH
+//            LanguageEnum.Japanese ->    Locale.JAPANESE
+//            else ->                     Locale.getDefault()
+//        }
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            config.setLocale(locale)
+//            config.setLayoutDirection(locale)
+//        } else {
+//            config.setLocale(locale)
+//            config.setLayoutDirection(locale)
+//            app.resources.updateConfiguration(config, app.resources.displayMetrics)
+//        }
         app.sharedPreferences.edit()
-                .putString(SP_KEY_LANGUAGE, languageEnum.value)
-                .apply()
+            .putString(SP_KEY_LANGUAGE, languageEnum.value)
+            .apply()
     }
 }
 
