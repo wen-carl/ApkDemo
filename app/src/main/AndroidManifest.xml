@@ -13,16 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SwitchActivity"/>
+        <activity android:name=".activities.SwitchActivity"/>
         <activity
-            android:name=".BaseActivity"
+            android:name=".base.BaseActivity"
             android:theme="@style/AppTheme">
         </activity>
     </application>

@@ -8,6 +8,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:id="@+id/baseContainer"
     tools:showIn="@layout/activity_base"
-    tools:context=".BaseActivity">
+    tools:context=".base.BaseActivity">
 
 </FrameLayout>

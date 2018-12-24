@@ -1,10 +1,14 @@
 <resources>
-    <string name="app_name">ApkDemo</string>
+    <string name="app_name">ApkDemo(Default))</string>
 
-    <string name="rb_auto">Auto</string>
-    <string name="rb_chinese">中文</string>
-    <string name="rb_english">English</string>
-    <string name="rb_japanese">日本語</string>
+    <string name="rb_auto">Auto(Default)</string>
+    <string name="rb_chinese">中文(Default)</string>
+    <string name="rb_english">English(Default)</string>
+    <string name="rb_japanese">日本語(Default)</string>
 
-    <string name="hello">Hello</string>
+    <string name="hello">Hello(Default)</string>
+
+    <string name="rb_day">Day(Default)</string>
+    <string name="rb_night">Night(Default)</string>
+    <string name="rb_custom">Custom(Default)</string>
 </resources>

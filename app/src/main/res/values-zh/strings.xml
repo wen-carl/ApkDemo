@@ -7,4 +7,7 @@
     <string name="rb_japanese">日本語</string>
 
     <string name="hello">你好</string>
+    <string name="rb_day">日间模式</string>
+    <string name="rb_night">夜间模式</string>
+    <string name="rb_custom">自定义</string>
 </resources>

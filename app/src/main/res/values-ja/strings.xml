@@ -8,4 +8,7 @@
     <string name="rb_japanese">日本語</string>
 
     <string name="hello">こんにちは</string>
+    <string name="rb_day">デイモード</string>
+    <string name="rb_night">ナイトモード</string>
+    <string name="rb_custom">カスタムモード</string>
 </resources>

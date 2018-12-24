@@ -1,7 +1,9 @@
-package com.carl.apkdemo
+package com.carl.apkdemo.activities
 
 import android.content.Intent
 import android.os.Bundle
+import com.carl.apkdemo.base.BaseActivity
+import com.carl.apkdemo.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {

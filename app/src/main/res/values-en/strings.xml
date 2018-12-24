@@ -7,4 +7,7 @@
     <string name="rb_japanese">日本語</string>
 
     <string name="hello">Hello</string>
+    <string name="rb_day">Day</string>
+    <string name="rb_night">Night</string>
+    <string name="rb_custom">Custom</string>
 </resources>

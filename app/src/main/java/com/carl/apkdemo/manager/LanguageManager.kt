@@ -1,10 +1,11 @@
-package com.carl.apkdemo
+package com.carl.apkdemo.manager
 
 import android.annotation.TargetApi
 import android.content.Context
 import android.os.Build
 import android.os.LocaleList
 import android.support.v7.app.AppCompatActivity
+import com.carl.apkdemo.App
 import java.util.*
 
 

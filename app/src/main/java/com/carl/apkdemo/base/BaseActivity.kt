@@ -1,10 +1,16 @@
-package com.carl.apkdemo
+package com.carl.apkdemo.base
 
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
+import com.carl.apkdemo.manager.LanguageManager
+import com.carl.apkdemo.models.MessageEvent
+import com.carl.apkdemo.R
+import com.carl.apkdemo.manager.LanguageEnum
+import com.carl.apkdemo.manager.ThemeEnum
+import com.carl.apkdemo.manager.ThemeManager
 
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.content_base.*
@@ -48,10 +54,18 @@ open class BaseActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     open fun onReceiveEvent(msg: MessageEvent) {
-        if (1 == msg.type) {
-            LanguageManager.reload(this)
+
+        when (msg.type) {
+            1 -> onLanguageChanged(LanguageManager.manager.current())
+            2 -> onThemeChanged(ThemeManager.manager.currentTheme())
         }
     }
+
+    protected open fun onLanguageChanged(language: LanguageEnum) {
+        LanguageManager.reload(this)
+    }
+
+    protected open fun onThemeChanged(theme: ThemeEnum) {}
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LanguageManager.getAttachBaseContext(newBase))
