@@ -10,4 +10,6 @@
     <string name="rb_day">日间模式</string>
     <string name="rb_night">夜间模式</string>
     <string name="rb_custom">自定义</string>
+    <string name="language">语言</string>
+    <string name="theme">主题</string>
 </resources>

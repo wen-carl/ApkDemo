@@ -10,4 +10,6 @@
     <string name="rb_day">Day</string>
     <string name="rb_night">Night</string>
     <string name="rb_custom">Custom</string>
+    <string name="language">Language</string>
+    <string name="theme">Theme</string>
 </resources>

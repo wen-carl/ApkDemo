@@ -2,18 +2,18 @@ package com.carl.apkdemo.activities
 
 import android.content.Intent
 import android.os.Bundle
-import com.carl.apkdemo.base.BaseActivity
+import android.view.View
 import com.carl.apkdemo.R
-import kotlinx.android.synthetic.main.activity_main.*
+import com.carl.apkdemo.base.BaseActivity
 
 class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         addContentView(R.layout.activity_main)
+    }
 
-        textView.setOnClickListener {
-            startActivity(Intent(this, SwitchActivity::class.java))
-        }
+    override fun onFabClick(view: View) {
+        startActivity(Intent(this, SwitchActivity::class.java))
     }
 }

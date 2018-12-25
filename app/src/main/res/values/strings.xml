@@ -11,4 +11,6 @@
     <string name="rb_day">Day(Default)</string>
     <string name="rb_night">Night(Default)</string>
     <string name="rb_custom">Custom(Default)</string>
+    <string name="language">Language(Default)</string>
+    <string name="theme">Theme(Default)</string>
 </resources>

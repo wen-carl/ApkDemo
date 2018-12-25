@@ -1,15 +1,14 @@
 package com.carl.apkdemo.activities
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatDelegate
 import android.view.MenuItem
+import com.carl.apkdemo.R
 import com.carl.apkdemo.base.BaseActivity
 import com.carl.apkdemo.manager.LanguageEnum
 import com.carl.apkdemo.manager.LanguageManager
 import com.carl.apkdemo.manager.ThemeEnum
 import com.carl.apkdemo.manager.ThemeManager
 import com.carl.apkdemo.models.MessageEvent
-import com.carl.apkdemo.R
 import kotlinx.android.synthetic.main.activity_switch.*
 import org.greenrobot.eventbus.EventBus
 
@@ -63,12 +62,6 @@ class SwitchActivity : BaseActivity() {
 
             EventBus.getDefault().post(MessageEvent(2))
         }
-    }
-
-    override fun onThemeChanged(theme: ThemeEnum) {
-        super.onThemeChanged(theme)
-
-        ThemeManager.manager.switchTo(this, theme)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {

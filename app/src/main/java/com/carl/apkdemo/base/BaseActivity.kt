@@ -4,14 +4,14 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
-import com.carl.apkdemo.manager.LanguageManager
-import com.carl.apkdemo.models.MessageEvent
+import android.support.v7.app.AppCompatActivity
+import android.view.View
 import com.carl.apkdemo.R
 import com.carl.apkdemo.manager.LanguageEnum
+import com.carl.apkdemo.manager.LanguageManager
 import com.carl.apkdemo.manager.ThemeEnum
 import com.carl.apkdemo.manager.ThemeManager
-
+import com.carl.apkdemo.models.MessageEvent
 import kotlinx.android.synthetic.main.activity_base.*
 import kotlinx.android.synthetic.main.content_base.*
 import org.greenrobot.eventbus.EventBus
@@ -27,8 +27,7 @@ open class BaseActivity : AppCompatActivity() {
         supportActionBar?.setTitle(R.string.app_name)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            onFabClick(view)
         }
 
         EventBus.getDefault().register(this)
@@ -52,8 +51,13 @@ open class BaseActivity : AppCompatActivity() {
         EventBus.getDefault().unregister(this)
     }
 
+    protected open fun onFabClick(view: View) {
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    open fun onReceiveEvent(msg: MessageEvent) {
+    protected open fun onReceiveEvent(msg: MessageEvent) {
 
         when (msg.type) {
             1 -> onLanguageChanged(LanguageManager.manager.current())
@@ -65,7 +69,9 @@ open class BaseActivity : AppCompatActivity() {
         LanguageManager.reload(this)
     }
 
-    protected open fun onThemeChanged(theme: ThemeEnum) {}
+    protected open fun onThemeChanged(theme: ThemeEnum) {
+        ThemeManager.manager.switchTo(this, theme)
+    }
 
     override fun attachBaseContext(newBase: Context?) {
         super.attachBaseContext(LanguageManager.getAttachBaseContext(newBase))
